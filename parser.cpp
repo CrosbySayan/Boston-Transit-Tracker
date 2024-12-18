@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "transport_def.cpp"
 using namespace std;
 // handles the json files of the MBTA API and pulls relevant data.
 //Bus Stop: https://api-v3.mbta.com/stops/1315
@@ -10,47 +11,40 @@ using namespace std;
 //    /
 // - [] - [=-=-=] - []
 //
-enum Vehichle {
-    LIGHT_RAIL,
-    HEAVY_RAIL,
-    COMMUTER_RAIL,
-    BUS,
-    FERRY
+
+//Max Length Linked List FIFO
+struct node {
+   p_Ride elem;
+   node * next;
 };
 
-enum Occupancy {
-    EMPTY,
-    MANY_SEATS_AVAILABLE,
-    FEW_SEATS_AVAILABLE,
-    STANDING_ROOM_ONLY,
-    CRUSHED_STANDING_ROOM_ONLY,
-    FULL,
-    NOT_ACCEPTING_PASSENGERS,
-    NO_DATA_AVAILABLE
+struct queue {
+    int MAX_LENGTH;
+    node * head;
+    node * tail;
 };
 
-enum Status {
-    INCOMING_AT, //About to arrive at thee stop
-    STOPPED_AT, //The Vehichle is standing at the stop.
-    IN_TRANSIT_TO //The Vehichle is in between stops (in stop_sequence it will say n+1 what it was from)
-};
+bool empty(struct queue * queue) {
+    return (queue->head == NULL);
+}
 
-//A Ride is defined as public transportation module that will
-//get a client from their TO stop to their FROM stop.
-//Holds information about the id in the
-struct Ride
-{
-    Vehichle type;          //Type of vehicle
-    Occupancy occup_status; //The fullness of the vehichle TBI
-    Status train_status;    //The status of the train between stops.
-    string id;              //The vehichles tag
-    int arrival;            //Time of arrival
-};
-typedef Ride * p_Ride;
+void push(struct queue * queue, p_Ride elem) {
+    node * new_elem = new node{elem, NULL};
+    if(empty(queue)) {
+        queue->head = new_elem;
+        queue->tail = new_elem;
+    } else {
+        queue->tail->next = new_elem;
+        queue->tail = new_elem;
+    }
+}
 
-struct Stop {
-    int id;
-    int stop_sequence;
+p_Ride pop(struct queue * queue) {
+    if(empty(queue)) {
+        return NULL;
+    }
+
+    
 }
 
 //To Do:
@@ -60,6 +54,8 @@ struct Stop {
 // Some kind of scheduler that knocks off items that arrival is past current time.
 
 int main() {
-    cout << "Hello World" << endl;
+    Ride r = {BUS, NO_DATA_AVAILABLE, INCOMING_AT, "y1234", 1205};
+
+    cout << r.arrival << endl;
     return 0;
 }
