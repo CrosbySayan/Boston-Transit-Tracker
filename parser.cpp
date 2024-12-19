@@ -60,13 +60,27 @@ queue current = {4, 0, NULL, NULL};
 // Print the data out.
 // Some kind of scheduler that knocks off items that arrival is past current time.
 
+
+//-------------------------------------------/
+// P R E T T Y   P R I N T                  /
+//_________________________________________/
+
+void prettyPrint(struct queue * queue) {
+    node * ptr = queue->head;
+    while(ptr != NULL) {
+        p_Ride ride = ptr->elem;
+        cout << "ID: " + ride->id + " | ";
+        cout << ride->arrival;
+        ptr = ptr->next;
+        cout << "\n";
+    }
+}
+
 int main() {
     Ride r = {BUS, NO_DATA_AVAILABLE, INCOMING_AT, "y1234", 1205};
     Ride b = {LIGHT_RAIL, NO_DATA_AVAILABLE, STOPPED_AT, "G-1302", 1206};
     push(&current, &r);
     push(&current, &b);
-    pop(&current);
-    cout << current.head->elem->id << endl;
-    cout << current.tail->elem->id << endl;
+    prettyPrint(&current);
     return 0;
 }
