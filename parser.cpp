@@ -54,11 +54,14 @@ p_Ride pop(struct queue * queue) {
 }
 
 queue current = {4, 0, NULL, NULL};
+
 //To Do:
-// FIFO List that holds all the currently new Transports.
 // Build Parser to pull to create new Transports at a set interval.
-// Print the data out.
 // Some kind of scheduler that knocks off items that arrival is past current time.
+
+//--------------------------------------------|
+// P A R S I N G  D A T A                     |
+//--------------------------------------------|
 
 
 //-------------------------------------------/
