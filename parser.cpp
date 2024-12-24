@@ -4,7 +4,7 @@
 //Networking
 #include <curl/curl.h>
 //Parseing
-//#include <json/json.h>
+#include "json/json.h"
 using namespace std;
 // handles the json files of the MBTA API and pulls relevant data.
 //Bus Stop: https://api-v3.mbta.com/stops/1315
@@ -74,7 +74,8 @@ size_t write_data(char * buffer, size_t size, size_t nmemb, string * userp) {
     return total_bytes;
 }
 
-void run_parser() {
+//Runs a simple curl pull and puts it into a string
+void run_curl_pull() {
     CURL *handle = curl_easy_init();
     cout << "Running" << endl;
     curl_easy_setopt(handle, CURLOPT_URL, "https://api-v3.mbta.com/stops/70254");
@@ -111,6 +112,6 @@ int main() {
     push(&current, &r);
     push(&current, &b);
     prettyPrint(&current);
-    run_parser();
+    run_curl_pull();
     return 0;
 }
