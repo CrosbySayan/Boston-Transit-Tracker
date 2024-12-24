@@ -65,12 +65,14 @@ queue current = {4, 0, NULL, NULL};
 //--------------------------------------------|
 // P A R S I N G  D A T A                     |
 //--------------------------------------------|
+
+//This function needs to write the data into a usable string buffer to buffered for our purposes
 size_t write_data(void* buffer, size_t size, size_t nmemb, void* userp);
 
 void run_parser() {
     CURL *handle = curl_easy_init();
     cout << "Running" << endl;
-    curl_easy_setopt(handle, CURLOPT_URL, "https://api-v3.mbta.com");
+    curl_easy_setopt(handle, CURLOPT_URL, "https://api-v3.mbta.com/stops/70254");
 
     CURLcode res = curl_easy_perform(handle);
     if(res != CURLE_OK) {
