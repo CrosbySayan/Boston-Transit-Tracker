@@ -65,15 +65,18 @@ queue current = {4, 0, NULL, NULL};
 //--------------------------------------------|
 // P A R S I N G  D A T A                     |
 //--------------------------------------------|
+size_t write_data(void* buffer, size_t size, size_t nmemb, void* userp);
 
 void run_parser() {
-    CURLU *h = curl_url();
-    CURLUcode rc = curl_url_set(h, CURLUPART_URL, "https://api-v3.mbta.com", 0);
-     if (rc) {
-            fprintf(stderr, "curl_easy_setopt() failed: %s\n", curl_url_strerror(rc));
-            return;
+    CURL *handle = curl_easy_init();
+    cout << "Running" << endl;
+    curl_easy_setopt(handle, CURLOPT_URL, "https://api-v3.mbta.com");
+
+    CURLcode res = curl_easy_perform(handle);
+    if(res != CURLE_OK) {
+        cerr << "Request Failed: " << curl_easy_strerror(res)<<endl;
     }
-    curl_url_cleanup(h);
+    curl_easy_cleanup(handle);
 }
 
 //-------------------------------------------/
