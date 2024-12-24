@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include "transport_def.cpp"
+//Networking
+#include <curl/curl.h>
+
 using namespace std;
 // handles the json files of the MBTA API and pulls relevant data.
 //Bus Stop: https://api-v3.mbta.com/stops/1315
@@ -63,6 +66,15 @@ queue current = {4, 0, NULL, NULL};
 // P A R S I N G  D A T A                     |
 //--------------------------------------------|
 
+void run_parser() {
+    CURLU *h = curl_url();
+    CURLUcode rc = curl_url_set(h, CURLUPART_URL, "https://api-v3.mbta.com", 0);
+     if (rc) {
+            fprintf(stderr, "curl_easy_setopt() failed: %s\n", curl_url_strerror(rc));
+            return;
+    }
+    curl_url_cleanup(h);
+}
 
 //-------------------------------------------/
 // P R E T T Y   P R I N T                  /
@@ -85,5 +97,6 @@ int main() {
     push(&current, &r);
     push(&current, &b);
     prettyPrint(&current);
+    run_parser();
     return 0;
 }

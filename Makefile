@@ -5,7 +5,7 @@ $(NULL)
 # Compiler
 #CXX = g++
 CXXFLAGS=-std=c++17 -O0 -fno-inline -g -Wall -Wextra -Wpedantic -Werror -pedantic-errors
-LDFLAGS=-std=c++17
+LDFLAGS=-std=c++17 -lcurl
 
 ## for gcov
 #CXXFLAGS:=$(CXXFLAGS) -fprofile-arcs -ftest-coverage
