@@ -94,6 +94,13 @@ void run_curl_pull() {
     Json::Reader jsonReader;
     if (jsonReader.parse(*httpData, jsonData)) {
          cout << jsonData.toStyledString() << endl;
+         Json::Value subTree = jsonData["data"];
+         const string id(subTree["id"].asString());
+
+         const string desc(subTree["attributes"]["description"].asString());
+
+         cout << id << endl;
+         cout << desc << endl;
     }
 }
 
