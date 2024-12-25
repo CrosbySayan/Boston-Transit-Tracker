@@ -48,6 +48,7 @@ typedef Ride * p_Ride;
 
 //Defines a stop with it's id and the sequence in the route.
 struct Stop {
-    int id;
+    string id;
+    string desc;
     int stop_sequence;
 };
